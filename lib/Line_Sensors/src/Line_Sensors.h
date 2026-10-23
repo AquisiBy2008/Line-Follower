@@ -1,5 +1,5 @@
-#ifndef __LINE-SENSORS_H__
-#define __LINE-SENSORS_H__
+#ifndef __LINE_SENSORS_H__
+#define __LINE_SENSORS_H__
 
 #include "Arduino.h"
 
