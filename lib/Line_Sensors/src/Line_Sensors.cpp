@@ -3,7 +3,7 @@
 LineSensors::LineSensors()
 {
     // Constructor implementation
-    for (uint8_t i = 0; i < 3; i++)
+    for (uint8_t i = 0; i < 2; i++)
     {
         pinMode(_sensorPins[i], INPUT);
     }
@@ -18,7 +18,7 @@ void LineSensors::update()
 void LineSensors::readSensors()
 {
     // Implementation for reading sensor values
-    for (uint8_t i = 0; i < 3; i++)
+    for (uint8_t i = 0; i < 2; i++)
     {
         _sensorReadings[i] = digitalRead(_sensorPins[i]);
     }
@@ -27,7 +27,7 @@ void LineSensors::readSensors()
 bool LineSensors::isLineDetected()
 {
     // Implementation for checking if a line is detected
-    for (uint8_t i = 0; i < 3; i++)
+    for (uint8_t i = 0; i < 2; i++)
     {
         if (_sensorReadings[i] == HIGH)
         {
@@ -37,13 +37,12 @@ bool LineSensors::isLineDetected()
     return false; // No line detected
 }
 
-const bool* LineSensors::getReadings()
+uint8_t LineSensors::getSensorReading(uint8_t sensorIndex)
 {
-    // Implementation for getting sensor readings
-    static bool readings[3];
-    for (uint8_t i = 0; i < 3; i++)
+    if (sensorIndex < 2)
     {
-        readings[i] = (_sensorReadings[i] == HIGH);
+        return _sensorReadings[sensorIndex];
     }
-    return readings;
+
+    return LOW;
 }
