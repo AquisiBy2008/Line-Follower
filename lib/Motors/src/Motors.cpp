@@ -32,17 +32,3 @@ void Motors::stop()
     setMotor(1, 0);
     setMotor(2, 0);
 }
-
-uint8_t Motors::calculateSpeed(uint8_t pwm, float amplitude, float theta, bool sum)
-{
-    if (sum)
-    {
-        speed = pwm + (amplitude * sin(theta));
-    }
-    else
-    {
-        speed = pwm - (amplitude * sin(theta));
-    }
-
-    return speed;
-}
