@@ -19,13 +19,6 @@ void Motors::setMotor(uint8_t motor, int16_t speed)
     analogWrite(_pwmPins[motor - 1], abs(speed));
 }
 
-void Motors::move()
-{
-    // Implementation for moving the robot
-    setMotor(1, 255);
-    setMotor(2, 255);
-}
-
 void Motors::rotate()
 {
     // Implementation for rotating the robot
@@ -38,4 +31,18 @@ void Motors::stop()
     // Implementation for stopping the robot
     setMotor(1, 0);
     setMotor(2, 0);
+}
+
+uint8_t Motors::calculateSpeed(uint8_t pwm, float amplitude, float theta, bool sum)
+{
+    if (sum)
+    {
+        speed = pwm + (amplitude * sin(theta));
+    }
+    else
+    {
+        speed = pwm - (amplitude * sin(theta));
+    }
+
+    return speed;
 }
