@@ -15,13 +15,13 @@ const int16_t sensorPositions[NUM_SENSORS] = {
 };
 
 // Parámetros del controlador
-const int16_t PWM_BASE = 150;
+const int16_t PWM_BASE = 180;
 const float KP = 0.025f;
-const int16_t MAX_CORRECTION = 90;
+const int16_t MAX_CORRECTION = 120;
 
 // Parámetros de búsqueda
-const int16_t SEARCH_PWM = 110;
-const unsigned long LOST_TIMEOUT = 500;
+const int16_t SEARCH_PWM = 200;
+const unsigned long LOST_TIMEOUT = 500000;
 
 // Intervalos
 const unsigned long UPDATE_INTERVAL = 10;
@@ -94,11 +94,23 @@ void followLine()
         PWM_BASE - correction, 0, 255
     );
 
-    motors.setMotor(1, pwmLeft-100);
+    motors.setMotor(1, pwmLeft);
     motors.setMotor(2, pwmRight);
 }
 
 // Buscar la línea cuando se pierde
+
+// void searchLine()
+// {
+//     if (!lineEverFound)
+//     {
+//         motors.stop();
+//         return;
+//     }
+
+//     motors.setMotor(1, pwmRight);
+//     motors.setMotor(2, pwmLeft);
+// }
 
 void searchLine()
 {
@@ -111,27 +123,18 @@ void searchLine()
         return;
     }
 
-    // Detenerse si supera el tiempo de búsqueda
-    if (millis() - lastLineMillis > LOST_TIMEOUT)
-    {
-        motors.stop();
-        pwmLeft = 0;
-        pwmRight = 0;
-        return;
-    }
-
     if (lastDirection == -1)
     {
         // Antes giraba a la izquierda
         // Ahora buscar hacia la derecha
         pwmLeft = SEARCH_PWM;
-        pwmRight = 0;
+        pwmRight = -SEARCH_PWM;
     }
     else if (lastDirection == 1)
     {
         // Antes giraba a la derecha
         // Ahora buscar hacia la izquierda
-        pwmLeft = 0;
+        pwmLeft = -SEARCH_PWM;
         pwmRight = SEARCH_PWM;
     }
     else

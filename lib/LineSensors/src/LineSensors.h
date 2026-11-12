@@ -32,7 +32,7 @@ private:
     bool _calibrated = false;
 
     static const uint8_t CALIBRATION_SAMPLES = 64;
-    static const int MARGIN = 120;
+    static const int MARGIN = 20;
 
     static const bool BLACK_IS_HIGH = true;
 };
