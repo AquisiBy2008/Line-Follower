@@ -98,20 +98,6 @@ void followLine()
     motors.setMotor(2, pwmRight);
 }
 
-// Buscar la línea cuando se pierde
-
-// void searchLine()
-// {
-//     if (!lineEverFound)
-//     {
-//         motors.stop();
-//         return;
-//     }
-
-//     motors.setMotor(1, pwmRight);
-//     motors.setMotor(2, pwmLeft);
-// }
-
 void searchLine()
 {
     // Si nunca se detectó la línea, detenerse
